@@ -38,6 +38,7 @@ export const authSlice = createSlice({
                 if (post._id === action.payload.post_id) return action.payload.post;
                 return post;
             });
+<<<<<<< HEAD
         state.posts = updatePost;
         },
     }, 
@@ -46,3 +47,8 @@ export const authSlice = createSlice({
 export const { setMode, setLogin, setLogout, setFriends, setPosts, setPost } = authSlice.actions;
 
 export default authSlice.reducer;
+=======
+    },
+    }, 
+},);
+>>>>>>> fa88d699e3bac39401c5e3819f3cdc8094fe0799
