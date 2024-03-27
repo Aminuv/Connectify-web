@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import { on } from "events";
 
 // Form component
 const registerSchema = yup.object().shape({
@@ -55,6 +56,55 @@ const Form = () => {
     const isNonMobile = useMediaQuery("(min-width: 600px)");
     const isLogin = pageType === "login";
     const isRegister = pageType === "register";
+
+    // register function
+    const register = async (values, onSubmitProps) => {
+        // send form info with picture
+        const formData = new FormData();
+        for (let value in values) {
+            formData.append(value, values[value]);
+        }
+        formData.append("pictureePath", values.picture.name);
+
+        // save the returned from the server
+        const savedUserResponse = await fetch(
+            "http://localhost:5000/api/users/register",
+            {
+                method: "POST",
+                body: formData,
+            }
+        );
+        const savedUser = await savedUserResponse.json();
+        onSubmitProps.ressetForm();
+
+        if (savedUser) {
+            setPageType("login");
+        }
+    }
+
+    // login function
+    const login = async (values, onSubmitProps) => {
+        const loggedInResponse = await fetch(
+            "http://localhost:5000/api/users/login",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values),
+            }
+        );
+        const loggedIn = await loggedInResponse.json();
+        onSubmitProps.resetForm();
+        if (loggedIn) {
+            dispatch(setLogin({
+                user: loggedIn.user,
+                token: loggedIn.token,
+                }));
+            navigate("/home");
+        }
+
+    }
 
     // Handle form submit
     const handleFormSubmit = async (values, onSubmitProps) => {
