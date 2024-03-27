@@ -15,7 +15,6 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
-import { on } from "events";
 
 // Form component
 const registerSchema = yup.object().shape({
@@ -68,7 +67,7 @@ const Form = () => {
 
         // save the returned from the server
         const savedUserResponse = await fetch(
-            "http://localhost:5000/api/users/register",
+            "http://localhost:3000/api/users/register",
             {
                 method: "POST",
                 body: formData,
@@ -85,7 +84,7 @@ const Form = () => {
     // login function
     const login = async (values, onSubmitProps) => {
         const loggedInResponse = await fetch(
-            "http://localhost:5000/api/users/login",
+            "http://localhost:3000/api/users/login",
             {
                 method: "POST",
                 headers: {
