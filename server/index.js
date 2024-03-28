@@ -54,7 +54,7 @@ app.use('/posts', postRoutes);
 
 /* MONGODB CONNECTION */
 const PORT = process.env.PORT || 6000;
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
