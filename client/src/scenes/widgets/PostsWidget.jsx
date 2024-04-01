@@ -74,5 +74,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       </>
     );
   };
+
+  console.log(PostsWidget);
   
   export default PostsWidget;
